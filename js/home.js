@@ -5,7 +5,7 @@ function renderHome(p) {
   p.innerHTML=`
   <div class="welcome">
     <div class="welcome-title">Chào Đạt & TLinh ☀️</div>
-    <div class="welcome-sub">Mỗi ngày là một trang mới để chúng mình cùng viết<br>nên câu chuyện của hai người 💕</div>
+    <div class="welcome-sub">Mỗi ngày là một trang mới để chúng mình cùng viết💕</div>
   </div>
   <div class="stat-row">
     <div class="stat-box"><div class="stat-num" id="hs-balance">…</div><div class="stat-label">Số dư tháng</div></div>
