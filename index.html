@@ -258,7 +258,7 @@ textarea { resize:vertical; min-height:72px; line-height:1.55; }
 .hc-sub   { font-size:.68rem; color:var(--ink3); margin-top:.15rem; }
 
 .love-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:1rem; box-shadow:var(--sh); }
-.love-input-row { display:flex; gap:.45rem; align-items:flex-end; }
+.love-input-row { display:flex; gap:.45rem; align-items:center; }
 .love-input-row textarea { flex:1; min-height:44px; max-height:80px; }
 .love-list { margin-top:.7rem; display:flex; flex-direction:column; gap:.4rem; }
 .love-item {
@@ -538,18 +538,18 @@ input[type=range]::-webkit-slider-thumb {
 <!-- HEADER -->
 <header class="header">
   <span class="header-icon">🏡</span>
-  <h1>Tổ Ấm Của Chúng Mình</h1>
-  <div class="header-sub">Đạt & TLinh · 5 bé mèo 🐱</div>
+  <h1>Tốn Tiền Quá</h1>
+  <div class="header-sub">Đạt & TLinh · Ốc · Vịt · Soju · Uni · Tôm 🐱</div>
   <div class="date-chip" id="date-chip"></div>
 </header>
 
 <!-- NAV -->
 <nav class="nav">
-  <button class="nav-btn on" data-t="home"    onclick="go('home',this)">🏠 Tổ Ấm</button>
+  <button class="nav-btn on" data-t="home"    onclick="go('home',this)">🏠 Home</button>
   <button class="nav-btn"    data-t="finance" onclick="go('finance',this)">💰 Thu Chi</button>
   <button class="nav-btn"    data-t="chores"  onclick="go('chores',this)">🧹 Việc Nhà</button>
   <button class="nav-btn"    data-t="notes"   onclick="go('notes',this)">📝 Ghi Chú</button>
-  <button class="nav-btn"    data-t="dreams"  onclick="go('dreams',this)">🌟 Ước Mơ</button>
+  <button class="nav-btn"    data-t="dreams"  onclick="go('dreams',this)">🌟 Mục Tiêu</button>
   <button class="nav-btn"    data-t="ai"      onclick="go('ai',this)">🤖 Trợ Lý</button>
 </nav>
 
@@ -710,24 +710,24 @@ function render() {
 function renderHome(p) {
   p.innerHTML=`
   <div class="welcome">
-    <div class="welcome-title">Chào Đạt & TLinh ☀️</div>
-    <div class="welcome-sub">Mỗi ngày là một trang mới để chúng mình cùng viết<br>nên câu chuyện của hai người 💕</div>
+    <div class="welcome-title">Chào buổi sáng ☀️</div>
+    <div class="welcome-sub">Mỗi ngày là một trang mới💕</div>
   </div>
   <div class="stat-row">
     <div class="stat-box"><div class="stat-num" id="hs-balance">…</div><div class="stat-label">Số dư tháng</div></div>
     <div class="stat-box"><div class="stat-num" id="hs-chores">…</div><div class="stat-label">Việc nhà</div></div>
-    <div class="stat-box"><div class="stat-num" id="hs-dreams">…</div><div class="stat-label">Ước mơ</div></div>
+    <div class="stat-box"><div class="stat-num" id="hs-dreams">…</div><div class="stat-label">Mục tiêu</div></div>
   </div>
   <div class="home-grid">
     <div class="home-card hc-finance" onclick="go('finance',document.querySelector('[data-t=finance]'))"><span class="hc-emoji">💰</span><div class="hc-title">Thu Chi</div><div class="hc-sub">Quản lý ngân sách</div></div>
     <div class="home-card hc-chores"  onclick="go('chores',document.querySelector('[data-t=chores]'))"><span class="hc-emoji">🧹</span><div class="hc-title">Việc Nhà</div><div class="hc-sub">Phân công cùng nhau</div></div>
-    <div class="home-card hc-notes"   onclick="go('notes',document.querySelector('[data-t=notes]'))"><span class="hc-emoji">📝</span><div class="hc-title">Ghi Chú</div><div class="hc-sub">Sự kiện & nhắn nhỏ</div></div>
-    <div class="home-card hc-dreams"  onclick="go('dreams',document.querySelector('[data-t=dreams]'))"><span class="hc-emoji">🌟</span><div class="hc-title">Ước Mơ</div><div class="hc-sub">Mục tiêu chung mình</div></div>
+    <div class="home-card hc-notes"   onclick="go('notes',document.querySelector('[data-t=notes]'))"><span class="hc-emoji">📝</span><div class="hc-title">Ghi Chú</div><div class="hc-sub">Sự kiện & nhắn nhủ</div></div>
+    <div class="home-card hc-dreams"  onclick="go('dreams',document.querySelector('[data-t=dreams]'))"><span class="hc-emoji">🌟</span><div class="hc-title">Mục tiêu</div><div class="hc-sub">Mục tiêu chung mình</div></div>
   </div>
-  <div class="sec">💌 Nhắn Nhau Đi</div>
+  <div class="sec">💌 Lời Nhắn</div>
   <div class="love-wrap">
     <div class="love-input-row">
-      <textarea id="love-txt" placeholder="Viết gì đó ngọt ngào... 🌸" style="min-height:44px"></textarea>
+      <input id="love-txt" type="text" placeholder="Viết gì đó ngọt ngào... 🌸" />
       <button class="btn btn-rose btn-sm" onclick="saveLove()">💌 Gửi</button>
     </div>
     <div class="love-list" id="love-list"></div>
@@ -785,7 +785,7 @@ function renderFinance(p) {
       <button onclick="nextMonth()">▶</button>
     </div>
     <div class="pills" id="person-pills" style="margin:0">
-      ${['all','Đạt','TLinh','Cả hai'].map((v,i)=>`<span class="pill${v===finFilter.person?' on':''}" data-v="${v}" onclick="pickPersonFilter(this)">${v==='all'?'Tất cả':v}</span>`).join('')}
+      ${['all','Đạt','TLinh'].map((v,i)=>`<span class="pill${v===finFilter.person?' on':''}" data-v="${v}" onclick="pickPersonFilter(this)">${v==='all'?'Tất cả':v}</span>`).join('')}
     </div>
   </div>
   <!-- add form -->
@@ -907,7 +907,7 @@ function drawChart(expenses) {
 function renderChores(p) {
   p.innerHTML=`
   <div class="card">
-    <div class="card-title">🧹 Việc Nhà Chung Mình</div>
+    <div class="card-title">🧹 Việc Nhà</div>
     <div class="prog-bar-wrap">
       <div class="prog-head"><span>Tiến độ hôm nay</span><span id="ch-prog-txt">0/0</span></div>
       <div class="prog-track"><div class="prog-fill" id="ch-prog-fill" style="width:0%"></div></div>
@@ -924,7 +924,7 @@ function renderChores(p) {
     <div class="field"><label>Tên công việc</label><input id="ch-name" placeholder="vd: Rửa bát, quét nhà..."/></div>
     <div class="row2">
       <div class="field"><label>Phân công</label>
-        <select id="ch-assign"><option>Đạt</option><option>TLinh</option><option>Cùng làm 💕</option></select>
+        <select id="ch-assign"><option>Đạt</option><option>TLinh</option></select>
       </div>
       <div class="field"><label>Tần suất</label>
         <select id="ch-freq"><option>Hằng ngày</option><option>Hằng tuần</option><option>Hằng tháng</option><option>Khi cần</option></select>
@@ -1069,11 +1069,11 @@ async function delEvent(id) {
 function renderDreams(p) {
   p.innerHTML=`
   <div style="background:linear-gradient(135deg,#FDF8EE,#F8EEFF);border-radius:var(--r);border:1px solid var(--border);padding:1.1rem 1.1rem .9rem;margin-bottom:.8rem;">
-    <div class="card-title">🌟 Ước Mơ Của Chúng Mình</div>
+    <div class="card-title">🌟 Mục Tiêu Của Chúng Mình</div>
     <p style="font-size:.76rem;color:var(--ink2);font-style:italic;margin-bottom:1rem;">"Hai người cùng mơ, ước mơ sẽ thành hiện thực 💫"</p>
     <div id="dream-list"></div>
   </div>
-  <button class="btn btn-peach btn-full" onclick="openModal('modal-dream')">✨ Thêm Ước Mơ Mới</button>`;
+  <button class="btn btn-peach btn-full" onclick="openModal('modal-dream')">✨ Thêm Mục Tiêu Mới</button>`;
 }
 
 async function loadDreams() {
