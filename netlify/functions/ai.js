@@ -1,13 +1,10 @@
-export default async (req) => {
-  // Only allow POST
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
-  }
+const fetch = require('node-fetch');
 
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
   try {
-    const body = await req.json();
-
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const body = JSON.parse(event.body);
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -16,13 +13,9 @@ export default async (req) => {
       },
       body: JSON.stringify(body)
     });
-
-    const data = await response.json();
-    return Response.json(data);
-
-  } catch (err) {
-    return new Response(JSON.stringify({ error: 'Internal error', detail: err.message }), { status: 500 });
+    const data = await res.json();
+    return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) };
+  } catch (e) {
+    return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
   }
 };
-
-export const config = { path: '/api/ai' };

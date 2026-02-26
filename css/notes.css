@@ -1,0 +1,40 @@
+/* ════════════════════════════════════════════════
+   NOTES
+════════════════════════════════════════════════ */
+.notes-masonry { display:grid; grid-template-columns:1fr 1fr; gap:.65rem; }
+.note-card {
+  border-radius:14px; padding:.9rem; border:1px solid transparent;
+  cursor:default; transition:all .22s; position:relative; min-height:100px;
+  display:flex; flex-direction:column;
+}
+.note-card:hover { transform:translateY(-3px) rotate(.5deg); box-shadow:var(--sh-lg); }
+.nc-1 { background:#FEFBE8; border-color:#E8DFA0; }
+.nc-2 { background:var(--lav-xl); border-color:var(--lav-l); }
+.nc-3 { background:var(--sage-xl); border-color:var(--sage-l); }
+.nc-4 { background:#FFF4F2; border-color:var(--rose-l); }
+.nc-5 { background:var(--peach-xl); border-color:var(--peach-l); }
+.note-tag { font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.5; margin-bottom:.3rem; }
+.note-title { font-weight:600; font-size:.83rem; margin-bottom:.3rem; color:var(--ink); }
+.note-body  { font-size:.75rem; color:var(--ink2); flex:1; line-height:1.55; }
+.note-date  { font-size:.65rem; color:var(--ink3); margin-top:.5rem; }
+.note-del   { position:absolute; top:.45rem; right:.45rem; background:none; border:none; cursor:pointer; font-size:.8rem; opacity:0; color:var(--ink3); transition:opacity .15s; padding:.1rem; }
+.note-card:hover .note-del { opacity:.5; }
+.note-del:hover { opacity:.9 !important; color:var(--rose); }
+
+.event-list { display:flex; flex-direction:column; gap:.4rem; }
+.event-item {
+  display:flex; align-items:center; gap:.65rem;
+  padding:.6rem .8rem; background:var(--lav-xl);
+  border-radius:var(--r-sm); border:1px solid var(--lav-l); transition:all .18s;
+}
+.event-item:hover { transform:translateX(3px); }
+.ev-date { background:var(--surface); border-radius:8px; padding:.3rem .55rem; text-align:center; flex-shrink:0; min-width:44px; border:1px solid var(--lav-l); }
+.ev-day   { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600; color:var(--lav); line-height:1; }
+.ev-month { font-size:.62rem; color:var(--ink3); font-weight:600; }
+.ev-name  { font-size:.84rem; font-weight:500; }
+.ev-who   { font-size:.68rem; color:var(--ink3); margin-top:.05rem; }
+.ev-badge { font-size:.64rem; font-weight:700; padding:.15rem .45rem; border-radius:8px; flex-shrink:0; margin-left:auto; }
+.ev-b-chung  { background:var(--lav-l); color:var(--lav); }
+.ev-b-rieng  { background:var(--peach-l); color:var(--peach); }
+.ev-diff { color:var(--rose); font-size:.65rem; font-weight:600; }
+
