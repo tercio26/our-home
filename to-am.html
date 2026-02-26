@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tổ Ấm Của Chúng Mình 🏡</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm-white: #FFFBF5;
+    --peach: #F5C5A3;
+    --peach-light: #FAE0CC;
+    --rose: #E8A598;
+    --rose-dark: #C97A6E;
+    --sage: #A8C5A0;
+    --sage-light: #D4E8D0;
+    --lavender: #C5B8D8;
+    --lavender-light: #E8E2F2;
+    --amber: #E8C87A;
+    --amber-light: #F5E4B0;
+    --brown: #7A5C4A;
+    --brown-light: #A67C64;
+    --text: #4A3728;
+    --text-soft: #7A6558;
+    --shadow: rgba(122, 92, 74, 0.12);
+    --shadow-hover: rgba(122, 92, 74, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(245,197,163,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(197,184,216,0.2) 0%, transparent 50%),
+      radial-gradient(circle at 60% 10%, rgba(168,197,160,0.15) 0%, transparent 40%);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #FDF0E4 0%, #F8E8F2 50%, #EEF5EC 100%);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--peach-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px; right: -30px;
+    height: 100px;
+    background: radial-gradient(ellipse, rgba(245,197,163,0.3) 0%, transparent 70%);
+  }
+  .header-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--brown);
+    line-height: 1.2;
+  }
+  .header p {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-top: 0.4rem;
+    font-style: italic;
+  }
+  .date-badge {
+    display: inline-block;
+    background: white;
+    border: 1.5px solid var(--peach);
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    margin-top: 0.8rem;
+    font-weight: 600;
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    overflow-x: auto;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1rem 0.5rem;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid var(--peach-light);
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 0.5rem 1.1rem;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    color: var(--text-soft);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .nav-btn.active, .nav-btn:hover {
+    color: var(--brown);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--shadow-hover);
+  }
+  .nav-btn[data-tab="finance"].active { background: var(--amber-light); border-color: var(--amber); }
+  .nav-btn[data-tab="chores"].active { background: var(--sage-light); border-color: var(--sage); }
+  .nav-btn[data-tab="notes"].active { background: var(--lavender-light); border-color: var(--lavender); }
+  .nav-btn[data-tab="dreams"].active { background: var(--peach-light); border-color: var(--peach); }
+
+  /* MAIN */
+  .main { padding: 1.2rem 1rem 5rem; max-width: 600px; margin: 0 auto; }
+  .tab-content { display: none; animation: fadeUp 0.3s ease; }
+  .tab-content.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.3rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 15px var(--shadow);
+    border: 1.5px solid rgba(255,255,255,0.8);
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* INPUTS */
+  input, select, textarea {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    border: 1.5px solid var(--peach-light);
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    width: 100%;
+    background: var(--warm-white);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--peach);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .input-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* BUTTONS */
+  .btn {
+    padding: 0.65rem 1.2rem;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  .btn:active { transform: translateY(0); }
+  .btn-peach { background: var(--peach); color: var(--brown); }
+  .btn-sage { background: var(--sage); color: #3A5A32; }
+  .btn-lavender { background: var(--lavender); color: #4A3A6A; }
+  .btn-amber { background: var(--amber); color: #5A4A1A; }
+  .btn-rose { background: var(--rose); color: white; }
+  .btn-full { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .btn-sm { padding: 0.35rem 0.8rem; font-size: 0.78rem; }
+
+  /* FINANCE */
+  .balance-display {
+    background: linear-gradient(135deg, var(--amber-light), #FFF8E8);
+    border: 2px solid var(--amber);
+    border-radius: 16px;
+    padding: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .balance-label { font-size: 0.78rem; color: var(--text-soft); margin-bottom: 0.2rem; }
+  .balance-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--brown);
+  }
+  .balance-sub { display: flex; justify-content: center; gap: 1.5rem; margin-top: 0.8rem; }
+  .balance-in, .balance-out {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+  }
+  .balance-in { background: var(--sage-light); color: #3A5A32; }
+  .balance-out { background: #FFE8E4; color: var(--rose-dark); }
+
+  .transaction-list { max-height: 280px; overflow-y: auto; }
+  .transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0.9rem;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border: 1.5px solid transparent;
+    transition: all 0.2s;
+  }
+  .transaction-item:hover { transform: translateX(3px); }
+  .transaction-item.income { background: var(--sage-light); border-color: var(--sage); }
+  .transaction-item.expense { background: #FFF0EE; border-color: #F5C5BC; }
+  .t-info { flex: 1; }
+  .t-desc { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+  .t-meta { font-size: 0.74rem; color: var(--text-soft); margin-top: 0.1rem; }
+  .t-amount { font-weight: 700; font-size: 0.95rem; }
+  .t-amount.income { color: #3A7A32; }
+  .t-amount.expense { color: var(--rose-dark); }
+  .t-delete { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.4; padding: 0.2rem; transition: opacity 0.2s; }
+  .t-delete:hover { opacity: 0.9; }
+
+  /* CHORES */
+  .chore-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .chore-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    background: var(--warm-white);
+    border-radius: 14px;
+    border: 1.5px solid var(--sage-light);
+    transition: all 0.2s;
+  }
+  .chore-item.done { opacity: 0.55; background: var(--sage-light); }
+  .chore-item.done .chore-name { text-decoration: line-through; }
+  .chore-check {
+    width: 22px; height: 22px;
+    border: 2px solid var(--sage);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 0.75rem;
+    background: white;
+  }
+  .chore-item.done .chore-check { background: var(--sage); color: white; }
+  .chore-info { flex: 1; }
+  .chore-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+  .chore-assign { font-size: 0.75rem; color: var(--text-soft); margin-top: 0.1rem; }
+  .chore-freq {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    background: var(--sage-light);
+    color: #3A6A32;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .progress-wrap { margin-bottom: 1rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-soft); margin-bottom: 0.4rem; }
+  .progress-bar { background: var(--sage-light); border-radius: 10px; height: 8px; overflow: hidden; }
+  .progress-fill { background: var(--sage); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+
+  /* NOTES */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .note-card {
+    padding: 1rem;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+  }
+  .note-card:hover { transform: translateY(-3px) rotate(0.5deg); box-shadow: 0 8px 20px var(--shadow); }
+  .note-card.color-1 { background: #FFF8E8; border-color: var(--amber); }
+  .note-card.color-2 { background: var(--lavender-light); border-color: var(--lavender); }
+  .note-card.color-3 { background: var(--sage-light); border-color: var(--sage); }
+  .note-card.color-4 { background: #FFF0EE; border-color: var(--rose); }
+  .note-card.color-5 { background: var(--peach-light); border-color: var(--peach); }
+  .note-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+  }
+  .note-title { font-weight: 700; font-size: 0.88rem; color: var(--text); margin-bottom: 0.4rem; }
+  .note-body { font-size: 0.78rem; color: var(--text-soft); flex: 1; line-height: 1.5; }
+  .note-date { font-size: 0.7rem; color: var(--text-soft); opacity: 0.7; margin-top: 0.5rem; }
+  .note-del { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; cursor: pointer; font-size: 0.9rem; opacity: 0; transition: opacity 0.2s; }
+  .note-card:hover .note-del { opacity: 0.5; }
+  .note-del:hover { opacity: 1 !important; }
+
+  .events-list { margin-top: 0.5rem; }
+  .event-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--warm-white);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid var(--lavender);
+    transition: all 0.2s;
+  }
+  .event-item:hover { transform: translateX(3px); }
+  .event-date-box {
+    background: var(--lavender-light);
+    border-radius: 10px;
+    padding: 0.4rem 0.7rem;
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 50px;
+  }
+  .event-day { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--brown); line-height: 1; }
+  .event-month { font-size: 0.68rem; color: var(--text-soft); font-weight: 600; text-transform: uppercase; }
+  .event-info { flex: 1; }
+  .event-name { font-size: 0.88rem; font-weight: 600; }
+  .event-who { font-size: 0.75rem; color: var(--text-soft); margin-top: 0.1rem; }
+  .event-shared { font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 8px; font-weight: 700; }
+  .event-shared.chung { background: var(--lavender-light); color: #4A3A7A; }
+  .event-shared.ca-nhan { background: var(--peach-light); color: var(--brown); }
+
+  /* DREAMS */
+  .dream-item {
+    background: var(--warm-white);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.8rem;
+    border: 2px solid var(--peach-light);
+    transition: all 0.25s;
+  }
+  .dream-item:hover { border-color: var(--peach); transform: translateY(-2px); }
+  .dream-item.done { border-color: var(--sage); background: var(--sage-light); }
+  .dream-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.6rem; }
+  .dream-title { font-weight: 700; font-size: 0.95rem; color: var(--text); flex: 1; }
+  .dream-cat {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+  }
+  .cat-travel { background: var(--lavender-light); color: #4A3A7A; }
+  .cat-home { background: var(--peach-light); color: var(--brown); }
+  .cat-life { background: var(--sage-light); color: #3A6A32; }
+  .cat-money { background: var(--amber-light); color: #5A4A1A; }
+  .dream-note { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 0.7rem; line-height: 1.5; }
+  .dream-progress-label { font-size: 0.75rem; color: var(--text-soft); display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+  .dream-progress-bar { background: var(--peach-light); border-radius: 10px; height: 8px; overflow: hidden; margin-bottom: 0.7rem; }
+  .dream-progress-fill { background: linear-gradient(to right, var(--peach), var(--rose)); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+  .dream-item.done .dream-progress-fill { background: linear-gradient(to right, var(--sage), #5A9A52); }
+  .dream-footer { display: flex; justify-content: space-between; align-items: center; }
+  .dream-done-btn {
+    background: none;
+    border: 1.5px solid var(--peach);
+    border-radius: 12px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--brown-light);
+    transition: all 0.2s;
+  }
+  .dream-item.done .dream-done-btn { border-color: var(--sage); color: #3A6A32; background: white; }
+  .dream-done-btn:hover { transform: scale(1.05); }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--brown);
+    margin: 1.2rem 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--peach-light);
+    margin-left: 0.5rem;
+  }
+
+  /* TABS BOTTOM HOME */
+  .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .home-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.2rem;
+    box-shadow: 0 3px 12px var(--shadow);
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    text-align: center;
+  }
+  .home-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow-hover); }
+  .home-card.finance { border-color: var(--amber); }
+  .home-card.chores { border-color: var(--sage); }
+  .home-card.notes { border-color: var(--lavender); }
+  .home-card.dreams { border-color: var(--peach); }
+  .home-card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .home-card-title { font-weight: 700; font-size: 0.9rem; color: var(--text); }
+  .home-card-sub { font-size: 0.75rem; color: var(--text-soft); margin-top: 0.2rem; }
+
+  .welcome-banner {
+    background: linear-gradient(135deg, #FFF0E8 0%, #F8EEF8 100%);
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    border: 2px solid var(--peach-light);
+    text-align: center;
+  }
+  .welcome-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--brown);
+  }
+  .welcome-banner p { font-size: 0.82rem; color: var(--text-soft); margin-top: 0.4rem; line-height: 1.6; }
+
+  .today-summary {
+    background: white;
+    border-radius: 18px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 12px var(--shadow);
+  }
+  .summary-row { display: flex; justify-content: space-around; margin-top: 0.8rem; }
+  .summary-item { text-align: center; }
+  .summary-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: var(--brown); }
+  .summary-label { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.1rem; }
+
+  .empty-state { text-align: center; padding: 2rem 1rem; color: var(--text-soft); font-size: 0.85rem; }
+  .empty-state span { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; opacity: 0.5; }
+
+  /* SCROLL */
+  .transaction-list::-webkit-scrollbar,
+  .chore-list::-webkit-scrollbar { width: 4px; }
+  .transaction-list::-webkit-scrollbar-thumb,
+  .chore-list::-webkit-scrollbar-thumb { background: var(--peach); border-radius: 4px; }
+
+  /* MODAL OVERLAY */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(74,55,40,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--warm-white);
+    border-radius: 24px;
+    margin: auto;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: var(--peach);
+    border-radius: 2px;
+    margin: 0 auto 1.2rem;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--brown);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+  .chip {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    border: 1.5px solid var(--peach-light);
+    background: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-soft);
+  }
+  .chip.active, .chip:hover {
+    background: var(--peach-light);
+    border-color: var(--peach);
+    color: var(--brown);
+  }
+  .chip.sage.active { background: var(--sage-light); border-color: var(--sage); color: #3A6A32; }
+  .chip.lav.active { background: var(--lavender-light); border-color: var(--lavender); color: #4A3A7A; }
+  .chip.amber.active { background: var(--amber-light); border-color: var(--amber); color: #5A4A1A; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <span class="header-emoji">🏡</span>
+  <h1>Tổ Ấm Của Chúng Mình</h1>
+  <p>Nơi lưu giữ mọi khoảnh khắc yêu thương 🌸</p>
+  <div class="date-badge" id="headerDate"></div>
+</header>
+
+<nav class="nav">
+  <button class="nav-btn active" data-tab="home" onclick="switchTab('home', this)">🏠 Tổ Ấm</button>
+  <button class="nav-btn" data-tab="finance" onclick="switchTab('finance', this)">💰 Thu Chi</button>
+  <button class="nav-btn" data-tab="chores" onclick="switchTab('chores', this)">🧹 Việc Nhà</button>
+  <button class="nav-btn" data-tab="notes" onclick="switchTab('notes', this)">📝 Ghi Chú</button>
+  <button class="nav-btn" data-tab="dreams" onclick="switchTab('dreams', this)">🌟 Ước Mơ</button>
+</nav>
+
+<main class="main">
+
+  <!-- HOME TAB -->
+  <div class="tab-content active" id="tab-home">
+    <div class="welcome-banner">
+      <h2>Chào buổi sáng, Tổ Ấm! ☀️</h2>
+      <p>Mỗi ngày là một trang mới để chúng mình cùng viết nên câu chuyện của hai người 💕</p>
+    </div>
+    <div class="today-summary card">
+      <div class="card-title">✨ Tổng Quan Hôm Nay</div>
+      <div class="summary-row">
+        <div class="summary-item">
+          <div class="summary-num" id="home-balance">0đ</div>
+          <div class="summary-label">Số dư</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-num" id="home-chores">0/0</div>
+          <div class="summary-label">Việc nhà</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-num" id="home-dreams">0%</div>
+          <div class="summary-label">Ước mơ</div>
+        </div>
+      </div>
+    </div>
+    <div class="home-grid">
+      <div class="home-card finance" onclick="switchTabById('finance')">
+        <div class="home-card-icon">💰</div>
+        <div class="home-card-title">Thu Chi</div>
+        <div class="home-card-sub">Quản lý ngân sách</div>
+      </div>
+      <div class="home-card chores" onclick="switchTabById('chores')">
+        <div class="home-card-icon">🧹</div>
+        <div class="home-card-title">Việc Nhà</div>
+        <div class="home-card-sub">Phân công cùng nhau</div>
+      </div>
+      <div class="home-card notes" onclick="switchTabById('notes')">
+        <div class="home-card-icon">📝</div>
+        <div class="home-card-title">Ghi Chú</div>
+        <div class="home-card-sub">Sự kiện & nhắn nhỏ</div>
+      </div>
+      <div class="home-card dreams" onclick="switchTabById('dreams')">
+        <div class="home-card-icon">🌟</div>
+        <div class="home-card-title">Ước Mơ</div>
+        <div class="home-card-sub">Mục tiêu chung mình</div>
+      </div>
+    </div>
+    <div class="section-title">💌 Nhắn Nhau Đi</div>
+    <div class="card">
+      <textarea id="love-note" placeholder="Viết gì đó ngọt ngào cho nửa kia... 🌸" style="min-height:60px;"></textarea>
+      <div style="margin-top:0.6rem; display:flex; justify-content:flex-end;">
+        <button class="btn btn-rose btn-sm" onclick="saveLoveNote()">💌 Gửi yêu thương</button>
+      </div>
+      <div id="love-notes-list" style="margin-top:0.8rem;"></div>
+    </div>
+  </div>
+
+  <!-- FINANCE TAB -->
+  <div class="tab-content" id="tab-finance">
+    <div class="balance-display">
+      <div class="balance-label">Số dư hiện tại</div>
+      <div class="balance-amount" id="balance-display">0 đ</div>
+      <div class="balance-sub">
+        <span class="balance-in">▲ <span id="total-in">0đ</span></span>
+        <span class="balance-out">▼ <span id="total-out">0đ</span></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">➕ Thêm Giao Dịch</div>
+      <div class="chip-group" id="type-chips">
+        <span class="chip active" data-val="expense" onclick="selectChip(this,'type-chips')">Chi tiêu</span>
+        <span class="chip" data-val="income" onclick="selectChip(this,'type-chips')">Thu nhập</span>
+      </div>
+      <div class="input-row">
+        <div>
+          <label>Mô tả</label>
+          <input type="text" id="t-desc" placeholder="vd: tiền chợ...">
+        </div>
+        <div>
+          <label>Số tiền (đ)</label>
+          <input type="number" id="t-amount" placeholder="0">
+        </div>
+      </div>
+      <div class="input-row">
+        <div>
+          <label>Danh mục</label>
+          <select id="t-cat">
+            <option>🛒 Thực phẩm</option>
+            <option>🏠 Nhà cửa</option>
+            <option>🚗 Di chuyển</option>
+            <option>💊 Sức khỏe</option>
+            <option>🎉 Giải trí</option>
+            <option>👗 Quần áo</option>
+            <option>💼 Thu nhập</option>
+            <option>🎁 Khác</option>
+          </select>
+        </div>
+        <div>
+          <label>Người chi</label>
+          <select id="t-person">
+            <option>Đạt</option>
+            <option>TLinh</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-amber btn-full" onclick="addTransaction()">💰 Thêm Giao Dịch</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 Giao Dịch Gần Đây</div>
+      <div class="transaction-list" id="transaction-list">
+        <div class="empty-state"><span>💸</span>Chưa có giao dịch nào<br>Thêm giao dịch đầu tiên nào!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHORES TAB -->
+  <div class="tab-content" id="tab-chores">
+    <div class="card">
+      <div class="card-title">🧹 Hôm Nay Chúng Mình Làm Gì?</div>
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>Tiến độ</span>
+          <span id="chore-progress-text">0/0 việc hoàn thành</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="chore-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="chore-list" id="chore-list">
+        <div class="empty-state"><span>✨</span>Nhà sạch rồi hay chưa thêm việc? 😄</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">➕ Thêm Việc Nhà</div>
+      <div style="margin-bottom:0.6rem;">
+        <label>Tên công việc</label>
+        <input type="text" id="chore-name" placeholder="vd: Rửa bát, quét nhà...">
+      </div>
+      <div class="input-row">
+        <div>
+          <label>Phân công cho</label>
+          <select id="chore-assign">
+            <option>Đạt</option>
+            <option>TLinh</option>
+            <option>PLinh</option>
+          </select>
+        </div>
+        <div>
+          <label>Tần suất</label>
+          <select id="chore-freq">
+            <option>Hằng ngày</option>
+            <option>Hằng tuần</option>
+            <option>Hằng tháng</option>
+            <option>Khi cần</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-sage btn-full" onclick="addChore()">🧹 Thêm Công Việc</button>
+    </div>
+  </div>
+
+  <!-- NOTES TAB -->
+  <div class="tab-content" id="tab-notes">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:0.5rem">📅 Sự Kiện Sắp Tới</div>
+      <div class="events-list" id="events-list">
+        <div class="empty-state"><span>🗓️</span>Chưa có sự kiện nào</div>
+      </div>
+      <button class="btn btn-lavender btn-sm" onclick="showAddEvent()" style="margin-top:0.5rem">+ Thêm sự kiện</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📝 Ghi Chú Của Chúng Mình</div>
+      <div class="notes-grid" id="notes-grid">
+        <div class="empty-state" style="grid-column:span 2"><span>📓</span>Chưa có ghi chú nào</div>
+      </div>
+      <button class="btn btn-lavender btn-full" onclick="showAddNote()" style="margin-top:0.8rem">+ Thêm Ghi Chú</button>
+    </div>
+  </div>
+
+  <!-- DREAMS TAB -->
+  <div class="tab-content" id="tab-dreams">
+    <div class="card" style="background: linear-gradient(135deg,#FFF8EE,#F8EEFF); border:2px solid var(--peach-light);">
+      <div class="card-title">🌟 Ước Mơ Của Chúng Mình</div>
+      <p style="font-size:0.82rem;color:var(--text-soft);font-style:italic;margin-bottom:1rem;">"Hai người cùng mơ, ước mơ sẽ thành hiện thực 💫"</p>
+      <div id="dream-list">
+        <div class="empty-state"><span>🌈</span>Cùng nhau viết ra những ước mơ nhé!</div>
+      </div>
+    </div>
+    <button class="btn btn-peach btn-full" onclick="showAddDream()" style="margin-top:0.5rem">✨ Thêm Ước Mơ Mới</button>
+  </div>
+
+</main>
+
+<!-- MODAL: Add Note -->
+<div class="modal-overlay" id="modal-note" onclick="closeModal('modal-note')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">📝 Ghi Chú Mới</div>
+    <div style="margin-bottom:0.6rem;">
+      <label>Tiêu đề</label>
+      <input type="text" id="note-title" placeholder="Tiêu đề ghi chú...">
+    </div>
+    <div style="margin-bottom:0.6rem;">
+      <label>Nội dung</label>
+      <textarea id="note-body" placeholder="Viết gì đó..."></textarea>
+    </div>
+    <div style="margin-bottom:0.8rem;">
+      <label>Nhãn</label>
+      <div class="chip-group" id="note-tag-chips">
+        <span class="chip active" data-val="Ghi nhớ" onclick="selectChip(this,'note-tag-chips')">📌 Ghi nhớ</span>
+        <span class="chip" data-val="Cùng nhau" onclick="selectChip(this,'note-tag-chips')">💕 Cùng nhau</span>
+        <span class="chip" data-val="Mua sắm" onclick="selectChip(this,'note-tag-chips')">🛒 Mua sắm</span>
+        <span class="chip" data-val="Ý tưởng" onclick="selectChip(this,'note-tag-chips')">💡 Ý tưởng</span>
+      </div>
+    </div>
+    <button class="btn btn-lavender btn-full" onclick="addNote()">💾 Lưu Ghi Chú</button>
+  </div>
+</div>
+
+<!-- MODAL: Add Event -->
+<div class="modal-overlay" id="modal-event" onclick="closeModal('modal-event')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">📅 Sự Kiện Mới</div>
+    <div style="margin-bottom:0.6rem;">
+      <label>Tên sự kiện</label>
+      <input type="text" id="event-name" placeholder="vd: Kỷ niệm 1 năm yêu...">
+    </div>
+    <div class="input-row">
+      <div>
+        <label>Ngày</label>
+        <input type="date" id="event-date">
+      </div>
+      <div>
+        <label>Loại</label>
+        <div class="chip-group" id="event-type-chips" style="margin-top:0.4rem">
+          <span class="chip lav active" data-val="chung" onclick="selectChip(this,'event-type-chips')">💑 Chung</span>
+          <span class="chip active" data-val="ca-nhan" onclick="selectChip(this,'event-type-chips')">👤 Cá nhân</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:0.8rem;">
+      <label>Người liên quan</label>
+      <select id="event-who">
+        <option>Cả hai</option>
+        <option>Anh ấy</option>
+        <option>Em ấy</option>
+      </select>
+    </div>
+    <button class="btn btn-lavender btn-full" onclick="addEvent()">📅 Lưu Sự Kiện</button>
+  </div>
+</div>
+
+<!-- MODAL: Add Dream -->
+<div class="modal-overlay" id="modal-dream" onclick="closeModal('modal-dream')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🌟 Ước Mơ Mới</div>
+    <div style="margin-bottom:0.6rem;">
+      <label>Tên ước mơ</label>
+      <input type="text" id="dream-title" placeholder="vd: Du lịch Đà Lạt cùng nhau...">
+    </div>
+    <div style="margin-bottom:0.6rem;">
+      <label>Ghi chú thêm</label>
+      <textarea id="dream-note" placeholder="Mô tả thêm về ước mơ này..." style="min-height:60px;"></textarea>
+    </div>
+    <div class="input-row">
+      <div>
+        <label>Danh mục</label>
+        <div class="chip-group" id="dream-cat-chips" style="margin-top:0.3rem;">
+          <span class="chip active" data-val="travel" onclick="selectChip(this,'dream-cat-chips')">✈️ Du lịch</span>
+          <span class="chip" data-val="home" onclick="selectChip(this,'dream-cat-chips')">🏠 Tổ ấm</span>
+          <span class="chip" data-val="life" onclick="selectChip(this,'dream-cat-chips')">💑 Cuộc sống</span>
+          <span class="chip amber" data-val="money" onclick="selectChip(this,'dream-cat-chips')">💰 Tài chính</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:0.8rem;">
+      <label>Tiến độ (<span id="dream-prog-val">0</span>%)</label>
+      <input type="range" id="dream-progress" min="0" max="100" value="0" oninput="document.getElementById('dream-prog-val').textContent=this.value" style="padding:0.3rem 0; background:transparent; border:none;">
+    </div>
+    <button class="btn btn-peach btn-full" onclick="addDream()">🌟 Thêm Ước Mơ</button>
+  </div>
+</div>
+
+<script>
+// --- STATE ---
+let state = {
+  transactions: [],
+  chores: [],
+  notes: [],
+  events: [],
+  dreams: [],
+  loveNotes: []
+};
+
+// Load from memory (session-only, no localStorage)
+function fmt(n) {
+  return n.toLocaleString('vi-VN') + 'đ';
+}
+
+// --- NAV ---
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  updateHomeStats();
+}
+function switchTabById(name) {
+  const btn = document.querySelector(`[data-tab="${name}"]`);
+  switchTab(name, btn);
+}
+
+// --- DATE ---
+function setDate() {
+  const d = new Date();
+  const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+  document.getElementById('headerDate').textContent =
+    `${days[d.getDay()]}, ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+}
+
+// --- CHIP SELECTION ---
+function selectChip(el, groupId) {
+  document.querySelectorAll(`#${groupId} .chip`).forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+function getChipVal(groupId) {
+  const active = document.querySelector(`#${groupId} .chip.active`);
+  return active ? active.dataset.val : '';
+}
+
+// --- MODALS ---
+function showAddNote() { document.getElementById('modal-note').classList.add('show'); }
+function showAddEvent() { document.getElementById('modal-event').classList.add('show'); }
+function showAddDream() { document.getElementById('modal-dream').classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// --- FINANCE ---
+function addTransaction() {
+  const desc = document.getElementById('t-desc').value.trim();
+  const amount = parseFloat(document.getElementById('t-amount').value);
+  if (!desc || !amount || amount <= 0) { alert('Vui lòng nhập đầy đủ thông tin!'); return; }
+  const type = getChipVal('type-chips') || 'expense';
+  state.transactions.unshift({
+    id: Date.now(), desc, amount, type,
+    cat: document.getElementById('t-cat').value,
+    person: document.getElementById('t-person').value,
+    date: new Date().toLocaleDateString('vi-VN')
+  });
+  document.getElementById('t-desc').value = '';
+  document.getElementById('t-amount').value = '';
+  renderTransactions();
+  updateHomeStats();
+}
+
+function deleteTransaction(id) {
+  state.transactions = state.transactions.filter(t => t.id !== id);
+  renderTransactions();
+  updateHomeStats();
+}
+
+function renderTransactions() {
+  const list = document.getElementById('transaction-list');
+  if (!state.transactions.length) {
+    list.innerHTML = '<div class="empty-state"><span>💸</span>Chưa có giao dịch nào<br>Thêm giao dịch đầu tiên nào!</div>';
+    document.getElementById('balance-display').textContent = '0 đ';
+    document.getElementById('total-in').textContent = '0đ';
+    document.getElementById('total-out').textContent = '0đ';
+    return;
+  }
+  let income = 0, expense = 0;
+  state.transactions.forEach(t => { if(t.type==='income') income+=t.amount; else expense+=t.amount; });
+  document.getElementById('balance-display').textContent = fmt(income - expense);
+  document.getElementById('total-in').textContent = fmt(income);
+  document.getElementById('total-out').textContent = fmt(expense);
+  list.innerHTML = state.transactions.map(t => `
+    <div class="transaction-item ${t.type}">
+      <div class="t-info">
+        <div class="t-desc">${t.cat} ${t.desc}</div>
+        <div class="t-meta">${t.person} · ${t.date}</div>
+      </div>
+      <div class="t-amount ${t.type}">${t.type==='income'?'+':'-'}${fmt(t.amount)}</div>
+      <button class="t-delete" onclick="deleteTransaction(${t.id})">✕</button>
+    </div>
+  `).join('');
+}
+
+// --- CHORES ---
+function addChore() {
+  const name = document.getElementById('chore-name').value.trim();
+  if (!name) { alert('Nhập tên công việc nhé!'); return; }
+  state.chores.push({
+    id: Date.now(), name, done: false,
+    assign: document.getElementById('chore-assign').value,
+    freq: document.getElementById('chore-freq').value
+  });
+  document.getElementById('chore-name').value = '';
+  renderChores();
+  updateHomeStats();
+}
+
+function toggleChore(id) {
+  const c = state.chores.find(c => c.id === id);
+  if (c) c.done = !c.done;
+  renderChores();
+  updateHomeStats();
+}
+
+function renderChores() {
+  const list = document.getElementById('chore-list');
+  if (!state.chores.length) {
+    list.innerHTML = '<div class="empty-state"><span>✨</span>Nhà sạch rồi hay chưa thêm việc? 😄</div>';
+    document.getElementById('chore-progress-text').textContent = '0/0 việc';
+    document.getElementById('chore-progress-fill').style.width = '0%';
+    return;
+  }
+  const done = state.chores.filter(c => c.done).length;
+  const pct = Math.round(done / state.chores.length * 100);
+  document.getElementById('chore-progress-text').textContent = `${done}/${state.chores.length} việc hoàn thành`;
+  document.getElementById('chore-progress-fill').style.width = pct + '%';
+  list.innerHTML = state.chores.map(c => `
+    <div class="chore-item ${c.done ? 'done' : ''}">
+      <div class="chore-check" onclick="toggleChore(${c.id})">${c.done ? '✓' : ''}</div>
+      <div class="chore-info">
+        <div class="chore-name">${c.name}</div>
+        <div class="chore-assign">👤 ${c.assign}</div>
+      </div>
+      <span class="chore-freq">${c.freq}</span>
+    </div>
+  `).join('');
+}
+
+// --- NOTES ---
+const NOTE_COLORS = ['color-1','color-2','color-3','color-4','color-5'];
+function addNote() {
+  const title = document.getElementById('note-title').value.trim();
+  const body = document.getElementById('note-body').value.trim();
+  if (!title) { alert('Nhập tiêu đề nhé!'); return; }
+  state.notes.unshift({
+    id: Date.now(), title, body,
+    tag: getChipVal('note-tag-chips') || 'Ghi nhớ',
+    color: NOTE_COLORS[state.notes.length % NOTE_COLORS.length],
+    date: new Date().toLocaleDateString('vi-VN')
+  });
+  document.getElementById('note-title').value = '';
+  document.getElementById('note-body').value = '';
+  closeModal('modal-note');
+  renderNotes();
+}
+
+function deleteNote(id) {
+  state.notes = state.notes.filter(n => n.id !== id);
+  renderNotes();
+}
+
+function renderNotes() {
+  const grid = document.getElementById('notes-grid');
+  if (!state.notes.length) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:span 2"><span>📓</span>Chưa có ghi chú nào</div>';
+    return;
+  }
+  grid.innerHTML = state.notes.map(n => `
+    <div class="note-card ${n.color}">
+      <button class="note-del" onclick="deleteNote(${n.id})">✕</button>
+      <div class="note-tag">${n.tag}</div>
+      <div class="note-title">${n.title}</div>
+      <div class="note-body">${n.body || ''}</div>
+      <div class="note-date">${n.date}</div>
+    </div>
+  `).join('');
+}
+
+// --- EVENTS ---
+function addEvent() {
+  const name = document.getElementById('event-name').value.trim();
+  const date = document.getElementById('event-date').value;
+  if (!name || !date) { alert('Nhập đầy đủ thông tin nhé!'); return; }
+  const d = new Date(date);
+  state.events.push({
+    id: Date.now(), name,
+    day: d.getDate(),
+    month: d.toLocaleString('vi-VN', {month: 'short'}),
+    type: getChipVal('event-type-chips') || 'chung',
+    who: document.getElementById('event-who').value,
+    dateVal: date
+  });
+  state.events.sort((a,b) => a.dateVal.localeCompare(b.dateVal));
+  document.getElementById('event-name').value = '';
+  document.getElementById('event-date').value = '';
+  closeModal('modal-event');
+  renderEvents();
+}
+
+function renderEvents() {
+  const list = document.getElementById('events-list');
+  if (!state.events.length) {
+    list.innerHTML = '<div class="empty-state"><span>🗓️</span>Chưa có sự kiện nào</div>';
+    return;
+  }
+  list.innerHTML = state.events.map(e => `
+    <div class="event-item">
+      <div class="event-date-box">
+        <div class="event-day">${e.day}</div>
+        <div class="event-month">${e.month}</div>
+      </div>
+      <div class="event-info">
+        <div class="event-name">${e.name}</div>
+        <div class="event-who">👤 ${e.who}</div>
+      </div>
+      <span class="event-shared ${e.type}">${e.type === 'chung' ? '💑 Chung' : '👤 Cá nhân'}</span>
+    </div>
+  `).join('');
+}
+
+// --- DREAMS ---
+const CAT_MAP = { travel: {label:'✈️ Du lịch', cls:'cat-travel'}, home: {label:'🏠 Tổ ấm', cls:'cat-home'}, life: {label:'💑 Cuộc sống', cls:'cat-life'}, money: {label:'💰 Tài chính', cls:'cat-money'} };
+function addDream() {
+  const title = document.getElementById('dream-title').value.trim();
+  if (!title) { alert('Nhập tên ước mơ nhé!'); return; }
+  state.dreams.push({
+    id: Date.now(), title,
+    note: document.getElementById('dream-note').value.trim(),
+    cat: getChipVal('dream-cat-chips') || 'travel',
+    progress: parseInt(document.getElementById('dream-progress').value),
+    done: false
+  });
+  document.getElementById('dream-title').value = '';
+  document.getElementById('dream-note').value = '';
+  document.getElementById('dream-progress').value = 0;
+  document.getElementById('dream-prog-val').textContent = '0';
+  closeModal('modal-dream');
+  renderDreams();
+  updateHomeStats();
+}
+
+function toggleDream(id) {
+  const d = state.dreams.find(d => d.id === id);
+  if (d) { d.done = !d.done; if(d.done) d.progress = 100; }
+  renderDreams();
+  updateHomeStats();
+}
+
+function renderDreams() {
+  const list = document.getElementById('dream-list');
+  if (!state.dreams.length) {
+    list.innerHTML = '<div class="empty-state"><span>🌈</span>Cùng nhau viết ra những ước mơ nhé!</div>';
+    return;
+  }
+  list.innerHTML = state.dreams.map(d => {
+    const cat = CAT_MAP[d.cat] || CAT_MAP.travel;
+    return `
+    <div class="dream-item ${d.done ? 'done' : ''}">
+      <div class="dream-header">
+        <div class="dream-title">${d.title}</div>
+        <span class="dream-cat ${cat.cls}">${cat.label}</span>
+      </div>
+      ${d.note ? `<div class="dream-note">${d.note}</div>` : ''}
+      <div class="dream-progress-label">
+        <span>Tiến độ</span><span>${d.progress}%</span>
+      </div>
+      <div class="dream-progress-bar">
+        <div class="dream-progress-fill" style="width:${d.progress}%"></div>
+      </div>
+      <div class="dream-footer">
+        <button class="dream-done-btn" onclick="toggleDream(${d.id})">
+          ${d.done ? '✓ Đã hoàn thành!' : '🎯 Đánh dấu hoàn thành'}
+        </button>
+      </div>
+    </div>
+  `}).join('');
+}
+
+// --- LOVE NOTES ---
+function saveLoveNote() {
+  const txt = document.getElementById('love-note').value.trim();
+  if (!txt) return;
+  state.loveNotes.unshift({ text: txt, time: new Date().toLocaleTimeString('vi-VN', {hour:'2-digit',minute:'2-digit'}) });
+  document.getElementById('love-note').value = '';
+  renderLoveNotes();
+}
+function renderLoveNotes() {
+  const list = document.getElementById('love-notes-list');
+  if (!state.loveNotes.length) { list.innerHTML = ''; return; }
+  list.innerHTML = state.loveNotes.slice(0,3).map(n => `
+    <div style="background:var(--peach-light);border-radius:12px;padding:0.7rem 0.9rem;margin-top:0.5rem;font-size:0.82rem;color:var(--text);border-left:3px solid var(--rose);">
+      <span style="font-style:italic;">"${n.text}"</span>
+      <span style="float:right;font-size:0.7rem;color:var(--text-soft);">${n.time}</span>
+    </div>
+  `).join('');
+}
+
+// --- HOME STATS ---
+function updateHomeStats() {
+  // Balance
+  let inc = 0, exp = 0;
+  state.transactions.forEach(t => { if(t.type==='income') inc+=t.amount; else exp+=t.amount; });
+  document.getElementById('home-balance').textContent = fmt(inc - exp);
+  // Chores
+  const done = state.chores.filter(c => c.done).length;
+  document.getElementById('home-chores').textContent = `${done}/${state.chores.length}`;
+  // Dreams
+  if (state.dreams.length) {
+    const avg = Math.round(state.dreams.reduce((s,d)=>s+d.progress,0) / state.dreams.length);
+    document.getElementById('home-dreams').textContent = avg + '%';
+  } else {
+    document.getElementById('home-dreams').textContent = '0%';
+  }
+}
+
+// --- INIT ---
+setDate();
+updateHomeStats();
+</script>
+</body>
+</html>
