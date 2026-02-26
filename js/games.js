@@ -81,8 +81,8 @@ let quizAnswered = false;
 function renderGames(p) {
   p.innerHTML = `
   <div class="games-hero">
-    <div class="games-hero-title">🎲 Góc Vui Của Chúng Mình</div>
-    <div class="games-hero-sub">Giải trí nhỏ · Kết nối lớn 💕</div>
+    <div class="games-hero-title">🎲 Gamify</div>
+    <div class="games-hero-sub">Giải trí nhỏ 💕</div>
   </div>
   <div class="games-grid">
     <div class="game-card gc-food" onclick="showGame('food')">
